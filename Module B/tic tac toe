@@ -1,0 +1,82 @@
+PLAYER_X = " X "
+PLAYER_O = " O "
+BLANK = "   "
+
+playerOneTurn = True
+
+board = [" ", " ", " ",
+" ", " ", "",
+" ", " ", " "]
+
+def clearBoard(): 
+  for index in [0, 1, 2, 3, 4, 5, 6, 7, 8]: 
+    board[index] = BLANK
+
+clearBoard()
+
+def winner(player): 
+  win = False
+  if(board[0] == player and board[1] == player and board[2] == player):  
+    win = True
+  elif(board[3] == player and board[4] == player and board[5] == player): 
+    win = True
+  elif(board[6] == player and board[7] == player and board[8] == player): 
+    win = True
+  elif(board[0] == player and board[4] == player and board[8] == player): 
+    win = True
+  elif(board[2] == player and board[4] == player and board[6] == player): 
+    win = True
+  elif(board[0] == player and board[3] == player and board[6] == player): 
+    win = True
+  elif(board[1] == player and board[4] == player and board[7] == player): 
+    win = True
+  elif(board[2] == player and board[5] == player and board[8] == player): 
+    win = True
+  return win
+  
+
+def drawBoard(): 
+  print(" ")
+  print("--------------")
+  print("|" + board[0] + "|" + board[1] + "|" + board[2] + "|")
+  print("--------------")
+  print("|" + board[3] + "|" + board[4] + "|" + board[5] + "|")
+  print("--------------")
+  print("|" + board[6] + "|" + board[7] + "|" + board[8] + "|")
+  print("--------------")
+
+while(True):
+    
+    if(winner(PLAYER_X) or winner(PLAYER_O)): 
+      clearBoard()
+      if(playerOneTurn): 
+        print("Player O has won")
+      else: 
+        print("Player X has won")
+    
+    drawBoard()
+  
+    print("Select a slot:")
+    slot = int(input("Slot = "))
+    
+    valid = False
+    
+    if(slot < 1 or slot > 9): 
+      print("try again, slot between 1-9")
+    else: 
+      valid = True
+
+    valid = False
+  
+    if(board[slot - 1] != BLANK): 
+      print("Slot has been taken")
+    else: 
+      valid = True
+  
+    if(valid):
+      if(playerOneTurn): 
+        board[slot - 1] = PLAYER_X
+        playerOneTurn = False
+      else:
+        board[slot - 1] = PLAYER_O
+        playerOneTurn = True
